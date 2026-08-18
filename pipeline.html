@@ -172,6 +172,23 @@ figure.dia figcaption{margin-top:12px; font-size:13.5px; color:var(--ink-3); lin
 
 footer{padding:32px 0 56px; border-top:1px solid var(--line); font-size:13.5px; color:var(--ink-3)}
 footer a{color:var(--ink-2)}
+
+.series{background:var(--sunk); border-bottom:1px solid var(--line); padding:0}
+.series .wrap{display:flex; flex-wrap:wrap; align-items:stretch; gap:0}
+.series a, .series span.cur{
+  flex:1 1 260px; display:block; padding:15px 20px; text-decoration:none;
+  border-right:1px solid var(--line); min-width:0;
+}
+.series .wrap > *:last-child{border-right:0}
+.series .n{
+  display:block; font-family:ui-monospace,Consolas,monospace; font-size:10.5px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:3px;
+}
+.series a .tt{display:block; color:var(--ink-2); font-size:14.5px; line-height:1.5}
+.series a:hover .tt{color:var(--neo)}
+.series span.cur{background:var(--surface)}
+.series span.cur .tt{display:block; color:var(--ink); font-size:14.5px; font-weight:700; line-height:1.5}
+.series span.cur .n{color:var(--neo)}
 </style>
 
 <div class="hero">
@@ -187,8 +204,20 @@ footer a{color:var(--ink-2)}
   </div>
 </div>
 
+<div class="series"><div class="wrap">
+<a href="./demo.html"><span class="n">1편 · 실증</span><span class="tt">텍스트 한 줄에서 24프레임까지 &rarr;</span></a>
+<span class="cur"><span class="n">2편 · 전환 &middot; 지금 보는 글</span><span class="tt">부위를 하나씩 만들던 방식을 접었습니다</span></span>
+</div></div>
+
 <section>
   <div class="wrap">
+    <div class="callout q">
+      <p style="margin:0"><strong>앞 글에서 이어집니다.</strong>
+      <a href="./demo.html">1편 &mdash; 텍스트 한 줄에서 24프레임까지</a>에서 파이프라인을 한 번 완주했고,
+      그때 드러난 문제 하나(<strong>손이 사라진다</strong>)를 고치려다 방식 자체를 바꾸게 됐습니다.
+      이 글은 그 과정과 결론입니다.</p>
+    </div>
+
     <h2>1. 누가 어디까지 하는가</h2>
     <p class="lede">이번 회차에서 가장 중요한 결정입니다. 인계물은 <strong>확정된 탑다운 그림 1장</strong>입니다.</p>
 

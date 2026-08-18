@@ -172,6 +172,23 @@ figure.dia figcaption{margin-top:12px; font-size:13.5px; color:var(--ink-3); lin
 
 footer{padding:32px 0 56px; border-top:1px solid var(--line); font-size:13.5px; color:var(--ink-3)}
 footer a{color:var(--ink-2)}
+
+.series{background:var(--sunk); border-bottom:1px solid var(--line); padding:0}
+.series .wrap{display:flex; flex-wrap:wrap; align-items:stretch; gap:0}
+.series a, .series span.cur{
+  flex:1 1 260px; display:block; padding:15px 20px; text-decoration:none;
+  border-right:1px solid var(--line); min-width:0;
+}
+.series .wrap > *:last-child{border-right:0}
+.series .n{
+  display:block; font-family:ui-monospace,Consolas,monospace; font-size:10.5px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:3px;
+}
+.series a .tt{display:block; color:var(--ink-2); font-size:14.5px; line-height:1.5}
+.series a:hover .tt{color:var(--neo)}
+.series span.cur{background:var(--surface)}
+.series span.cur .tt{display:block; color:var(--ink); font-size:14.5px; font-weight:700; line-height:1.5}
+.series span.cur .n{color:var(--neo)}
 </style>
 <div class="hero">
   <div class="wrap">
@@ -184,6 +201,11 @@ footer a{color:var(--ink-2)}
     <span class="today">크레딧 26 &middot; 약 40분 &middot; 사람이 개입한 지점 2번(고르기만)</span>
   </div>
 </div>
+
+<div class="series"><div class="wrap">
+<span class="cur"><span class="n">1편 · 실증 &middot; 지금 보는 글</span><span class="tt">텍스트 한 줄에서 24프레임까지</span></span>
+<a href="./pipeline.html"><span class="n">2편 · 전환</span><span class="tt">부위를 하나씩 만들던 방식을 접었습니다 &rarr;</span></a>
+</div></div>
 
 <section>
   <div class="wrap">
@@ -355,6 +377,12 @@ footer a{color:var(--ink-2)}
       <p>프로그래머에게는 <strong>완성된 스프라이트 시트만 전달됩니다.</strong>
       부위 이름은 생성 과정에서만 쓰이므로 이것은 <strong>그래픽 내부 문제</strong>이고,
       엔진 쪽 규약과 맞추지 않아도 됩니다.</p>
+    </div>
+
+    <div class="callout q">
+      <p style="margin:0"><strong>이 항목이 다음 글로 이어집니다.</strong> 손을 고치려고 세 가지를 시도했고,
+      결국 <strong>부위별 생성 방식 자체를 접었습니다</strong> &mdash;
+      <a href="./pipeline.html">2편 &mdash; 부위를 하나씩 만들던 방식을 접었습니다</a></p>
     </div>
 
     <h3 class="sub">4-2. 생성물의 종횡비가 슬롯과 어긋난다</h3>
