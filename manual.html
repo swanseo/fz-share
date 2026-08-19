@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>캐릭터 생성 도구 — 설치·사용 설명서</title>
+<meta name="description" content="순서대로 따라 하시면 됩니다. 설치 20~30분, 캐릭터 1종 5~10분 — Return Follower Z">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="캐릭터 생성 도구 — 설치·사용 설명서">
+<meta property="og:description" content="순서대로 따라 하시면 됩니다. 설치 20~30분, 캐릭터 1종 5~10분">
+<meta property="og:image" content="https://swanseo.github.io/fz-share/og-setup.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://swanseo.github.io/fz-share/manual.html">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#161519">
+</head>
+<body>
+<style>
+:root{
+  --ground:#F4F2F6; --surface:#FFFFFF; --sunk:#EAE7EE;
+  --ink:#1A181F; --ink-2:#5D5766; --ink-3:#8B8496;
+  --line:#DDD8E3;
+  --neo:#D42A80; --glow:#7A8A0E;
+  --ok:#1F7A4D; --warn:#B4431C;
+  --stage:#26242C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#161519; --surface:#1F1D24; --sunk:#121116;
+    --ink:#F0EDF4; --ink-2:#A9A2B5; --ink-3:#786F85;
+    --line:#302D38;
+    --neo:#F04D9B; --glow:#D6E84F;
+    --ok:#4FC98A; --warn:#F58A5E;
+    --stage:#0F0E12;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#161519; --surface:#1F1D24; --sunk:#121116;
+  --ink:#F0EDF4; --ink-2:#A9A2B5; --ink-3:#786F85;
+  --line:#302D38;
+  --neo:#F04D9B; --glow:#D6E84F;
+  --ok:#4FC98A; --warn:#F58A5E;
+  --stage:#0F0E12;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  font-size:16px; line-height:1.72; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:920px; margin:0 auto; padding:0 24px}
+.mono{font-family:ui-monospace,"Cascadia Code",Consolas,"D2Coding",monospace}
+
+.eyebrow{
+  font-family:ui-monospace,"Cascadia Code",Consolas,monospace;
+  font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-3); margin:0 0 10px;
+}
+
+.hero{background:var(--stage); border-bottom:1px solid var(--line); padding:52px 0 46px}
+.hero .wrap{display:flex; flex-direction:column; gap:22px}
+.hero h1{
+  margin:0; font-size:clamp(30px,5.2vw,50px); line-height:1.16; font-weight:800;
+  letter-spacing:-.022em; text-wrap:balance; color:#F0EDF4;
+}
+.hero h1 em{font-style:normal; color:#D6E84F}
+.hero p.sub{margin:0; max-width:60ch; color:#B5AEC2; font-size:17px}
+.hero p.sub strong{color:#E4DFEC}
+.hero .eyebrow{color:#7E7690}
+
+.today{
+  display:inline-flex; align-items:center; gap:9px; align-self:flex-start;
+  padding:7px 15px; border-radius:999px; font-size:13px;
+  background:rgba(214,232,79,.10); border:1px solid rgba(214,232,79,.30); color:#D6E84F;
+  font-family:ui-monospace,Consolas,monospace; letter-spacing:.04em;
+}
+
+section{padding:54px 0}
+section + section{border-top:1px solid var(--line)}
+h2{margin:0 0 6px; font-size:26px; font-weight:750; letter-spacing:-.018em; text-wrap:balance}
+h3.sub{margin:34px 0 8px; font-size:18px; font-weight:700}
+.lede{margin:0 0 24px; color:var(--ink-2); max-width:62ch}
+p{margin:0 0 14px}
+strong{font-weight:700}
+.star{color:var(--glow)}
+
+.callout{
+  background:var(--surface); border:1px solid var(--line);
+  border-left:3px solid var(--neo); border-radius:3px;
+  padding:18px 20px; margin:22px 0; font-size:16.5px;
+}
+.callout.q{border-left-color:var(--glow)}
+.callout p:last-child{margin-bottom:0}
+
+.tablewrap{overflow-x:auto; margin:22px 0}
+table{border-collapse:collapse; width:100%; font-size:14.5px; min-width:520px}
+th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+th{
+  font-family:ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3); font-weight:600;
+}
+td.n{text-align:right; font-variant-numeric:tabular-nums; font-family:ui-monospace,Consolas,monospace}
+tr:last-child td{border-bottom:none}
+.bad{color:var(--warn); font-weight:700}
+.good{color:var(--ok); font-weight:700}
+
+figure.shot{margin:26px 0 8px; padding:0}
+figure.shot img{
+  width:100%; height:auto; display:block; border-radius:4px;
+  border:1px solid var(--line); background:#fff;
+}
+figure.shot figcaption{margin-top:11px; font-size:13.5px; color:var(--ink-3); line-height:1.6}
+
+figure.dia{margin:26px 0 8px; padding:0}
+figure.dia svg{width:100%; max-width:100%; height:auto; display:block}
+figure.dia figcaption{margin-top:12px; font-size:13.5px; color:var(--ink-3); line-height:1.6}
+.dia .box{fill:var(--surface); stroke:var(--line); stroke-width:1.2}
+.dia .box-human{fill:var(--surface); stroke:var(--neo); stroke-width:1.9}
+.dia .band{fill:var(--sunk)}
+.dia .t{fill:var(--ink); font-size:13.5px; font-weight:650}
+.dia .t-sub{fill:var(--ink-2); font-size:11.5px}
+.dia .t-who{fill:var(--ink-3); font-size:10.5px; font-family:ui-monospace,Consolas,monospace; letter-spacing:.06em}
+.dia .t-who-h{fill:var(--neo); font-size:10.5px; font-family:ui-monospace,Consolas,monospace; letter-spacing:.06em; font-weight:700}
+.dia .t-head{fill:var(--ink-3); font-size:11px; font-family:ui-monospace,Consolas,monospace; letter-spacing:.14em}
+.dia .flow{stroke:var(--ink-2); stroke-width:1.6; fill:none}
+.dia .chip{fill:var(--sunk); stroke:var(--line); stroke-width:1}
+.dia .t-chip{fill:var(--ink-2); font-size:11px}
+
+.two{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin:24px 0}
+.card{
+  background:var(--surface); border:1px solid var(--line); border-radius:4px;
+  padding:18px 20px;
+}
+.card.no{border-left:3px solid var(--warn)}
+.card.yes{border-left:3px solid var(--ok)}
+.card h3{margin:0 0 8px; font-size:16.5px; font-weight:700}
+.card p{margin:0; font-size:14.5px; color:var(--ink-2); line-height:1.65}
+.card p + p{margin-top:9px}
+
+.asks{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:22px}
+.ask{
+  background:var(--surface); border:1px solid var(--line); border-radius:4px;
+  padding:18px 20px; display:flex; flex-direction:column; gap:9px;
+}
+.ask .key{
+  font-family:ui-monospace,Consolas,monospace; font-size:11px; font-weight:700;
+  letter-spacing:.08em; color:var(--neo);
+}
+.ask h3{margin:0; font-size:16px; font-weight:700; line-height:1.45}
+.ask p{margin:0; font-size:14px; color:var(--ink-2); line-height:1.62}
+.ask .role{
+  margin-top:auto; padding-top:9px; font-family:ui-monospace,Consolas,monospace;
+  font-size:11px; color:var(--ink-3); border-top:1px dashed var(--line);
+}
+
+.note{font-size:13.5px; color:var(--ink-3); margin:0}
+.steps{margin:22px 0 0; padding:0; list-style:none; counter-reset:s}
+.steps li{
+  counter-increment:s; position:relative; padding:0 0 16px 40px; font-size:15.5px; color:var(--ink-2);
+}
+.steps li::before{
+  content:counter(s); position:absolute; left:0; top:1px;
+  width:26px; height:26px; border-radius:999px; display:grid; place-items:center;
+  background:var(--sunk); border:1px solid var(--line); color:var(--ink-3);
+  font-family:ui-monospace,Consolas,monospace; font-size:12px; font-weight:700;
+}
+.steps li strong{color:var(--ink)}
+
+footer{padding:32px 0 56px; border-top:1px solid var(--line); font-size:13.5px; color:var(--ink-3)}
+footer a{color:var(--ink-2)}
+
+.series{background:var(--sunk); border-bottom:1px solid var(--line); padding:0}
+.series .wrap{display:flex; flex-wrap:wrap; align-items:stretch; gap:0}
+.series a, .series span.cur{
+  flex:1 1 260px; display:block; padding:15px 20px; text-decoration:none;
+  border-right:1px solid var(--line); min-width:0;
+}
+.series .wrap > *:last-child{border-right:0}
+.series .n{
+  display:block; font-family:ui-monospace,Consolas,monospace; font-size:10.5px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:3px;
+}
+.series a .tt{display:block; color:var(--ink-2); font-size:14.5px; line-height:1.5}
+.series a:hover .tt{color:var(--neo)}
+.series span.cur{background:var(--surface)}
+.series span.cur .tt{display:block; color:var(--ink); font-size:14.5px; font-weight:700; line-height:1.5}
+.series span.cur .n{color:var(--neo)}
+
+pre.cmd{
+  background:var(--sunk); border:1px solid var(--line); border-left:3px solid var(--glow);
+  border-radius:3px; padding:14px 16px; margin:14px 0; overflow-x:auto;
+  font-family:ui-monospace,"Cascadia Code",Consolas,"D2Coding",monospace;
+  font-size:14px; line-height:1.6; color:var(--ink); white-space:pre-wrap; word-break:break-all;
+}
+.steps li{padding-bottom:18px}
+h3.sub{margin-top:30px}
+@media print{
+  .hero{background:#fff; border-bottom:2px solid #000}
+  .hero h1,.hero p.sub strong{color:#000} .hero h1 em{color:#333} .hero p.sub{color:#333}
+  .today{display:none} section{padding:24px 0; break-inside:avoid}
+}
+</style>
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Return Follower Z &middot; 캐릭터 생성 도구</p>
+    <h1>설치하고<br><em>처음 만들어 보기</em></h1>
+    <p class="sub">
+      순서대로 따라 하시면 됩니다. <strong>처음 한 번만 설치하면 그다음부터는 바로 씁니다.</strong>
+      개발 지식은 필요 없고, 막히는 곳은 8장에 증상별로 정리해 두었습니다.
+    </p>
+    <span class="today">설치 20~30분 &middot; 캐릭터 1종 뽑는 데 5~10분</span>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2 id="m0">0. 이 도구가 하는 일</h2>
+    <p class="lede">한 줄로 설명을 적으면 <strong>게임에 넣을 캐릭터 그림</strong>이 나옵니다.</p>
+
+    <figure class="dia">
+      <svg viewBox="0 0 900 130" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="설명 한 줄에서 컨셉 후보, 낱장, 탑다운 확정까지의 흐름">
+        <rect class="box" x="6" y="24" width="196" height="76" rx="4"/>
+        <text class="t" x="22" y="52">① 설명 한 줄</text>
+        <text class="t-sub" x="22" y="74">&ldquo;갱단 좀비 6종&rdquo;</text>
+
+        <rect class="box" x="238" y="24" width="196" height="76" rx="4"/>
+        <text class="t" x="254" y="52">② 컨셉 후보</text>
+        <text class="t-sub" x="254" y="74">서 있는 그림 4장</text>
+
+        <rect class="box" x="470" y="24" width="196" height="76" rx="4"/>
+        <text class="t" x="486" y="52">③ 낱장으로</text>
+        <text class="t-sub" x="486" y="74">유닛 6종 분리</text>
+
+        <rect class="box-human" x="702" y="24" width="192" height="76" rx="4"/>
+        <text class="t" x="718" y="52">④ 탑다운 확정</text>
+        <text class="t-sub" x="718" y="74">그래픽에게 전달</text>
+
+        <path class="flow" d="M204 62 H 234" marker-end="url(#am)"/>
+        <path class="flow" d="M436 62 H 466" marker-end="url(#am)"/>
+        <path class="flow" d="M668 62 H 698" marker-end="url(#am)"/>
+        <defs><marker id="am" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 z" fill="#5D5766"/></marker></defs>
+      </svg>
+      <figcaption>기획자님이 하시는 판단은 전부 <strong>&ldquo;여러 장 중에 고르기&rdquo;</strong>입니다. 직접 그리는 일은 없습니다.</figcaption>
+    </figure>
+
+    <div class="callout q">
+      <p><strong>④까지가 이 도구의 범위입니다.</strong> 확정한 탑다운 1장을 그래픽에게 넘기면
+      부위 분리 &middot; 애니메이션 &middot; 스프라이트 시트는 그쪽에서 만듭니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="m1">1. 시작하기 전에</h2>
+    <p class="lede">아래 넷을 준비합니다. <strong>①②③은 무료</strong>이고, ④만 계정이 필요합니다.</p>
+
+    <div class="tablewrap">
+      <table>
+        <tr><th>준비물</th><th>무엇</th><th>시간</th></tr>
+        <tr><td>① 파이썬</td><td>도구를 돌리는 프로그램</td><td>5분</td></tr>
+        <tr><td>② 받으신 폴더</td><td><span class="mono">planner-kit.zip</span> 압축 풀기</td><td>1분</td></tr>
+        <tr><td>③ Claude Code</td><td>말로 시키는 창</td><td>5분</td></tr>
+        <tr><td>④ 이미지 AI 계정</td><td>그림을 그리는 쪽 (Higgsfield 등)</td><td>10분</td></tr>
+      </table>
+    </div>
+
+    <div class="callout">
+      <p><strong>④ 계정은 아직 정해지지 않았습니다.</strong> 새로 만들지, 함께 쓸지 정해지면 알려 드립니다.
+      ①~③까지 먼저 해 두시면 나중에 ④만 붙이면 됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="m2">2. 파이썬 설치</h2>
+
+    <ol class="steps">
+      <li><strong><a href="https://www.python.org/downloads/">python.org/downloads</a></strong> 에 들어가
+      노란 <strong>Download Python</strong> 버튼을 누릅니다.</li>
+      <li>받은 파일을 실행합니다.</li>
+      <li><strong class="star">★ 첫 화면 맨 아래의 <span class="mono">Add python.exe to PATH</span> 를 반드시 체크합니다.</strong>
+      이걸 놓치면 나중에 &ldquo;python을 찾을 수 없습니다&rdquo; 가 뜹니다.</li>
+      <li><strong>Install Now</strong> 를 누르고 끝날 때까지 기다립니다.</li>
+    </ol>
+
+    <div class="callout">
+      <p><strong>⚠️ 체크박스를 놓치셨다면</strong> &mdash; 설치 파일을 다시 실행하고
+      <span class="mono">Modify</span> 가 아니라 <strong>제거 후 재설치</strong>가 가장 빠릅니다.
+      제거는 <span class="mono">설정 &rarr; 앱</span> 에서 Python 을 찾아 지우시면 됩니다.</p>
+    </div>
+
+    <h3 class="sub">잘 됐는지 확인 — 여기서 &ldquo;터미널 여는 법&rdquo; 을 익힙니다</h3>
+    <p>앞으로 계속 쓰게 되므로 이 방법을 기억해 두시면 좋습니다.</p>
+
+    <ol class="steps">
+      <li>압축을 푼 폴더를 <strong>파일 탐색기</strong>로 엽니다.</li>
+      <li>맨 위 <strong>주소창</strong>(폴더 경로가 적힌 칸)을 마우스로 한 번 클릭합니다. 경로가 파랗게 선택됩니다.</li>
+      <li>거기에 <span class="mono">powershell</span> 이라고 <strong>덮어써서 입력</strong>하고 <strong>Enter</strong>.</li>
+      <li>검거나 파란 창이 뜹니다. <strong>이게 터미널입니다.</strong> 여기에 명령을 씁니다.</li>
+    </ol>
+
+    <p>터미널에 아래를 입력하고 Enter 를 칩니다.</p>
+    <pre class="cmd">python --version</pre>
+    <p><span class="mono">Python 3.12.x</span> 처럼 숫자가 나오면 성공입니다.
+    (<strong>3.10 이상</strong>이면 됩니다.)</p>
+
+    <div class="callout q">
+      <p><strong>macOS 를 쓰신다면</strong> &mdash; 터미널은 <span class="mono">Spotlight(⌘+Space)</span> 에서
+      <span class="mono">터미널</span> 을 검색해 엽니다. 그다음 <span class="mono">cd </span> 를 치고
+      <strong>폴더를 창 안으로 끌어다 놓은 뒤</strong> Enter 를 치면 그 폴더로 이동합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="m3">3. 도구 설치</h2>
+    <p class="lede">준비된 스크립트가 알아서 합니다. <strong>명령 한 줄</strong>입니다.</p>
+
+    <p>압축 푼 폴더에서 <strong>2장의 방법으로 터미널을 열고</strong>, 아래를 그대로 붙여넣고 Enter.</p>
+    <pre class="cmd">powershell -ExecutionPolicy Bypass -File scripts/setup-local.ps1</pre>
+    <p class="note">macOS 는 <span class="mono">bash scripts/setup-local.sh</span> 입니다.</p>
+
+    <p>1~2분 걸립니다. 화면에 <span class="mono">[1/5]</span> 부터 <span class="mono">[5/5]</span> 까지
+    차례로 지나가면 정상입니다. 중간에 영어가 많이 흐르는데 <strong>읽지 않으셔도 됩니다.</strong></p>
+
+    <div class="callout">
+      <p><strong>끝에 노란 글씨로 &ldquo;API 키가 아직 없습니다&rdquo; 가 나올 수 있습니다.</strong>
+      정상입니다 &mdash; 5장에서 이미지 AI를 연결하면 해결됩니다. 그냥 넘어가세요.</p>
+    </div>
+
+    <h3 class="sub">확인</h3>
+    <pre class="cmd">python scripts/conceptmake.py list</pre>
+    <p><span class="mono">아직 만든 컨셉이 없다</span> 라고 나오면 <strong>설치 성공</strong>입니다.
+    (아무것도 안 만들었으니 없는 게 맞습니다.)</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="m4">4. Claude Code 설치</h2>
+    <p class="lede">명령을 외우지 않고 <strong>말로 시키기 위한</strong> 창입니다.</p>
+
+    <ol class="steps">
+      <li><strong><a href="https://claude.com/claude-code">claude.com/claude-code</a></strong> 에서 내려받아 설치합니다.</li>
+      <li>실행한 뒤 <strong>압축을 푼 그 폴더를 엽니다.</strong>
+      &ldquo;폴더 열기&rdquo; 또는 &ldquo;Open folder&rdquo; 로 그 위치를 지정하시면 됩니다.</li>
+      <li>폴더 안의 규칙 파일을 자동으로 읽습니다. 따로 설정하실 것은 없습니다.</li>
+    </ol>
+
+    <div class="callout q">
+      <p><strong class="star">★ 반드시 그 폴더에서 열어야 합니다.</strong>
+      다른 곳에서 열면 도구와 참조 그림을 찾지 못해 &ldquo;그런 파일이 없다&rdquo; 가 납니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="m5">5. 이미지 AI 연결</h2>
+    <p class="lede">그림을 실제로 그리는 쪽입니다. <strong>Claude 자신은 그림을 그리지 못합니다.</strong></p>
+
+    <ol class="steps">
+      <li>Claude 설정에서 <strong>커넥터</strong>(또는 MCP) 항목을 엽니다.</li>
+      <li>이미지 생성 서비스를 찾아 <strong>연결</strong>을 누릅니다.</li>
+      <li>브라우저가 열리면 <strong>본인 계정으로 로그인</strong>하고 권한을 허용합니다.</li>
+      <li>Claude 로 돌아와 연결됨 표시를 확인합니다.</li>
+    </ol>
+
+    <div class="callout">
+      <p><strong>이 단계는 대신 해 드릴 수 없습니다.</strong> 각자 계정으로 직접 로그인해야 하는 부분입니다.
+      막히시면 화면 공유로 같이 하는 편이 빠릅니다 (10장).</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="m6">6. 처음 캐릭터 만들어 보기</h2>
+    <p class="lede">여기서부터는 <strong>Claude 에게 한국어로 말하면</strong> 됩니다. 명령을 외우실 필요가 없습니다.</p>
+
+    <h3 class="sub">① 컨셉 뽑기</h3>
+    <p>Claude 창에 이렇게 씁니다.</p>
+    <pre class="cmd">LA 도심 갱단 좀비 6종 컨셉 뽑아 줘. 이름은 la-gang 으로.</pre>
+    <p>잠시 뒤 <strong>서 있는 캐릭터 6종이 담긴 시트가 4장</strong> 나옵니다.
+    화면에 <span class="mono">preview.html</span> 경로가 찍히면 <strong>그 파일을 더블클릭</strong>해 브라우저로 봅니다.</p>
+
+    <h3 class="sub">② 마음에 드는 시트 고르기</h3>
+    <p>4장 중 하나를 고릅니다. <strong>&ldquo;캐릭터가 매력적인가&rdquo;</strong> 만 보시면 됩니다.</p>
+    <pre class="cmd">3번 시트가 좋아. 그걸로 낱장 잘라 줘.</pre>
+    <p>시트가 유닛 1종씩 낱장으로 갈라집니다.</p>
+
+    <h3 class="sub">③ 탑다운으로 바꾸기</h3>
+    <p>게임은 <strong>위에서 내려다보는 화면</strong>이라, 서 있는 그림을 위에서 본 모습으로 다시 그려야 합니다.</p>
+    <pre class="cmd">5번 유닛으로 탑다운 뽑아 줘.</pre>
+    <p>후보 4장이 나옵니다. 이번에는 <strong>&ldquo;위에서 본 게 맞는가&rdquo;</strong> 를 봅니다.</p>
+
+    <div class="two">
+      <div class="card yes">
+        <h3>맞는 그림</h3>
+        <p>정수리가 보이고, 어깨와 등이 하나의 덩어리처럼 보이고, 팔이 앞으로 뻗어 있고,
+        <strong>다리와 발이 안 보입니다.</strong></p>
+      </div>
+      <div class="card no">
+        <h3>틀린 그림</h3>
+        <p>얼굴이 정면으로 보이거나, 가슴&middot;허리&middot;바지&middot;신발이 보이면
+        <strong>카메라가 틀어진 것</strong>입니다. 고르지 마세요.</p>
+      </div>
+    </div>
+
+    <div class="callout q">
+      <p><strong class="star">★ 이 판단은 기계가 못 합니다.</strong> 실제로 걸러 보려 했지만
+      <strong>틀린 그림이 맞는 그림보다 좋은 점수</strong>를 낸 적이 있습니다.
+      그래서 여러 장 뽑아 <strong>사람이 눈으로 고르는 것</strong>이 전제입니다.
+      4장 다 이상하면 &ldquo;다시 뽑아 줘&rdquo; 라고 하시면 됩니다.</p>
+    </div>
+
+    <h3 class="sub">④ 확정하고 넘기기</h3>
+    <pre class="cmd">2번으로 확정.</pre>
+    <p>확정본이 저장되고, <strong>그래픽에게 넘길 파일 경로</strong>가 화면에 찍힙니다.
+    <span class="mono">pipeline/concepts/&lt;이름&gt;/picks/</span> 아래에 있습니다.
+    <strong>그 경로만 알려 주시면 됩니다.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="m7">7. 비용</h2>
+    <p class="lede">그림 <strong>1장에 2 크레딧</strong>입니다.</p>
+    <div class="tablewrap">
+      <table>
+        <tr><th>무엇</th><th>장수</th><th>크레딧</th></tr>
+        <tr><td>컨셉 후보</td><td class="n">4</td><td class="n">8</td></tr>
+        <tr><td>탑다운 후보</td><td class="n">4</td><td class="n">8</td></tr>
+        <tr><td><strong>유닛 1종 완주</strong></td><td class="n">8</td><td class="n"><strong>16</strong></td></tr>
+        <tr><td>다시 뽑는 여유 포함</td><td>&mdash;</td><td class="n"><strong>20~25</strong></td></tr>
+      </table>
+    </div>
+    <p>다시 뽑아도 부담이 큰 금액은 아닙니다. <strong>마음에 안 들면 다시 뽑는 편이 낫습니다.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="m8">8. 잘 안 될 때 <span class="star">★</span></h2>
+    <p class="lede">대부분 아래 안에 있습니다. <strong>증상을 먼저 찾아보세요.</strong></p>
+
+    <div class="tablewrap">
+      <table>
+        <tr><th>화면에 나온 말</th><th>왜</th><th>어떻게</th></tr>
+        <tr>
+          <td class="mono">python&hellip; 찾을 수 없습니다<br>is not recognized</td>
+          <td>파이썬 설치 때 <span class="mono">Add to PATH</span> 를 안 눌렀습니다</td>
+          <td>파이썬을 <strong>제거하고 다시 설치</strong>하며 그 체크박스를 켭니다 (2장)</td>
+        </tr>
+        <tr>
+          <td class="mono">그런 파일이 없다<br>No such file</td>
+          <td>다른 폴더에서 명령을 쳤습니다</td>
+          <td>압축 푼 폴더에서 <strong>주소창에 <span class="mono">powershell</span></strong> 로 다시 엽니다 (2장)</td>
+        </tr>
+        <tr>
+          <td class="mono">이 시스템에서 스크립트를<br>실행할 수 없습니다</td>
+          <td>PowerShell 보안 설정</td>
+          <td>명령 앞의 <span class="mono">-ExecutionPolicy Bypass</span> 를 빠뜨리지 않았는지 확인합니다</td>
+        </tr>
+        <tr>
+          <td class="mono">GEMINI_API_KEY 가 없다</td>
+          <td>이미지 AI가 아직 안 붙었습니다</td>
+          <td>5장을 마치면 사라집니다. 설치 중에 나오는 건 정상입니다</td>
+        </tr>
+        <tr>
+          <td>그림이 안 나오고<br><span class="mono">이미지를 기다린다</span></td>
+          <td>이미지 AI 연결이 끊겼거나 크레딧이 없습니다</td>
+          <td>Claude 에게 <strong>&ldquo;이미지 AI 연결 상태 확인해 줘&rdquo;</strong> 라고 물어보세요</td>
+        </tr>
+        <tr>
+          <td>낱장이 이상하게 잘림<br>(둘이 붙거나 조각남)</td>
+          <td>캐릭터끼리 붙어 있으면 경계를 못 찾습니다</td>
+          <td><strong>&ldquo;시트를 다시 뽑아 줘&rdquo;</strong> 가 가장 빠릅니다</td>
+        </tr>
+        <tr>
+          <td>탑다운 4장이 전부 이상함</td>
+          <td>생성이 잘 안 되는 캐릭터가 있습니다</td>
+          <td><strong>&ldquo;다시 뽑아 줘&rdquo;</strong>. 그래도 안 되면 다른 유닛으로 넘어가세요</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="callout">
+      <p><strong>여기에 없는 오류라면</strong> &mdash; 화면에 나온 <strong>빨간 글씨를 그대로 복사</strong>해서
+      Claude 에게 붙여넣고 &ldquo;이거 무슨 뜻이야?&rdquo; 라고 물어보세요. 대부분 그 자리에서 풀립니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="m9">9. 낯선 말들</h2>
+    <div class="tablewrap">
+      <table>
+        <tr><th>말</th><th>뜻</th></tr>
+        <tr><td>터미널 / PowerShell</td><td>명령을 글로 쳐 넣는 검은 창. 2장의 방법으로 엽니다</td></tr>
+        <tr><td>MCP / 커넥터</td><td>Claude 에 외부 서비스를 붙이는 연결. 여기서는 이미지 AI</td></tr>
+        <tr><td>크레딧</td><td>이미지 AI의 이용권. 그림 1장에 2개</td></tr>
+        <tr><td>탑다운</td><td>위에서 수직으로 내려다본 화면. 이 게임의 시점</td></tr>
+        <tr><td>시트</td><td>여러 캐릭터가 한 장에 늘어선 그림</td></tr>
+        <tr><td>낱장</td><td>시트를 캐릭터 1종씩 자른 것</td></tr>
+        <tr><td>리그</td><td>캐릭터를 부위로 나눠 움직이게 만든 뼈대. 그래픽 담당입니다</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="m10">10. 막히면</h2>
+    <p class="lede">혼자 오래 붙들지 마세요. <strong>3개 대륙에 흩어져 있어 하루가 그냥 갑니다.</strong></p>
+    <div class="two">
+      <div class="card yes">
+        <h3>먼저 Claude 에게</h3>
+        <p>오류 메시지를 그대로 붙여넣고 물어보시면 대부분 그 자리에서 풀립니다.
+        도구 사용법도 물어보시면 됩니다.</p>
+      </div>
+      <div class="card yes">
+        <h3>그래도 안 되면 Jira</h3>
+        <p><span class="mono">RFZ</span> 이슈에 댓글로 남겨 주세요.
+        <strong>어느 장에서 막혔는지</strong>와 <strong>화면 사진</strong>이 있으면 빠릅니다.</p>
+      </div>
+    </div>
+    <p><a href="https://picaseo.atlassian.net/jira/software/projects/RFZ">picaseo.atlassian.net/jira/software/projects/RFZ</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Return Follower Z &middot; 캐릭터 생성 도구 설명서 &middot; 2026-08-19</p>
+    <p>이 설명서는 <strong>탑다운 확정까지</strong>를 다룹니다. 부위 분리 &middot; 애니메이션 &middot; 시트는 그래픽이 맡습니다.</p>
+    <p><a href="./setup.html">배경과 전체 계획이 궁금하시면 &rarr;</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
