@@ -207,6 +207,7 @@ footer a{color:var(--ink-2)}
   <div class="wrap">
     <h2>이 글의 차례</h2>
     <ol>
+      <li><a href="#s0">이 시스템을 어떻게 이해하면 되나</a></li>
       <li><a href="#s1">왜 공격은 걷기와 다른 경로인가</a></li>
       <li><a href="#s2">이번에 실제로 만든 것 — 정육 유닛</a></li>
       <li><a href="#s3">사람이 하는 일 / 기계가 하는 일</a></li>
@@ -214,6 +215,50 @@ footer a{color:var(--ink-2)}
     </ol>
   </div>
 </div>
+
+<section>
+  <div class="wrap">
+    <h2 id="s0">0. 이 시스템을 어떻게 이해하면 되나</h2>
+    <p class="lede"><strong>공격 모션은 그래픽이 전담합니다.</strong> 기획자·프로그래머는 만들지 않아도 됩니다.</p>
+    <p>캐릭터 생성은 기획자가 컨셉을 뽑고 고르는 데까지 함께합니다. 하지만 공격은 <strong>무기 성향(둔기·사격·돌진)에 따라
+    동작 자체가 달라</strong>, 어떤 영상이 그 캐릭터답게 나왔는지 <strong>그림 감각으로 판단</strong>해야 합니다 &mdash; 그래서 그래픽의 몫입니다.
+    이 글은 <strong>만드는 법이 아니라, 시스템이 어떻게 굴러가는지 이해</strong>하기 위한 것입니다.</p>
+
+    <figure class="dia">
+      <svg viewBox="0 0 940 172" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="영상 생성은 기계, 고르기는 사람, 스프라이트로 굽기는 기계, 걷기 머리 얹기는 사람">
+        <rect class="box" x="8" y="34" width="200" height="96" rx="4"/>
+        <text class="t" x="24" y="64">① 영상 생성</text>
+        <text class="t-sub" x="24" y="86">칼 내리치기 여러 편</text>
+        <text class="t-who" x="24" y="112">🤖 기계</text>
+
+        <rect class="box" x="248" y="34" width="200" height="96" rx="4"/>
+        <text class="t" x="264" y="64">② 고르기</text>
+        <text class="t-sub" x="264" y="86">잘 나온 한 편</text>
+        <text class="t-who" x="264" y="112">👤 사람(그래픽)</text>
+
+        <rect class="box" x="488" y="34" width="200" height="96" rx="4"/>
+        <text class="t" x="504" y="64">③ 스프라이트</text>
+        <text class="t-sub" x="504" y="86">배경 빼고 9프레임</text>
+        <text class="t-who" x="504" y="112">🤖 기계</text>
+
+        <rect class="box" x="728" y="34" width="200" height="96" rx="4"/>
+        <text class="t" x="744" y="64">④ 머리 얹기</text>
+        <text class="t-sub" x="744" y="86">걷기와 연결</text>
+        <text class="t-who" x="744" y="112">👤 사람(그래픽)</text>
+
+        <path class="flow" d="M210 82 H 246" marker-end="url(#ar2)"/>
+        <path class="flow" d="M450 82 H 486" marker-end="url(#ar2)"/>
+        <path class="flow" d="M690 82 H 726" marker-end="url(#ar2)"/>
+        <defs><marker id="ar2" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 z" fill="#5D5766"/></marker></defs>
+      </svg>
+      <figcaption>네 단계 중 <strong>기계가 셋, 사람은 눈으로 판단만 둘</strong>(②·④). 그마저 그래픽 한 명이 합니다.</figcaption>
+    </figure>
+
+    <p class="lede" style="margin-top:20px">한 줄로 &mdash; <strong>기계가 만들 수 있는 건 다 만들고, 사람은 &ldquo;이게 잘 나왔나&rdquo;만 봅니다.</strong></p>
+  </div>
+</section>
 
 <section>
   <div class="wrap">
